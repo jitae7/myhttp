@@ -1,9 +1,8 @@
-FROM jitae7/ub_php_apache2:1.0
-MAINTAINER jitae.kim <kimjitae7@naver.com>
+FROM ubuntu:14.04
+MAINTAINER "jitae.Kim <kimjitae7@naver.com>"
+LABEL "purpose"="webserver practice"
+RUN apt-get update && apt-get install apache2 -y
+ADD ./index.html /var/www/html
+WORKDIR /var/www/html
 EXPOSE 80
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-
-docker build -t phpserver:2.0 .
-docker images
-docker run -it -d -p 8006:80 --name dev-php phpserver:2.0
-curl localhost:8006
+CMD apachectl -D FOREGROUND
